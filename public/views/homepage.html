@@ -1,0 +1,21 @@
+<h1 style="text-align:center;">Add a todo</h1>
+<input ng-model="task" ng-keyup="$event.which == 13 && searchEnter()" type="text" style="display:block;margin:0 auto;padding:5px;font-size:15px;width:300px;">
+<div id="tasksToShow">
+    <ul>
+        <li ng-repeat="oneTask in tasks">
+            <input type="checkbox" ng-model="oneTask.status">
+            <span>{{oneTask.task}}</span>
+            <a href="#!edit/{{oneTask._id}}">
+                <button type="button">edit</button>
+            </a>
+            <button type="button" ng-click="deleteTodo(oneTask, $index)">delete</button>
+
+
+            <div ng-if="editing">
+                <input ng-model="oneTask.taskMessage">
+                <button type="button" ng-click="updateTodo(oneTask, $index)">save</button>
+            </div>
+            </span>
+        </li>
+    </ul>
+</div>
