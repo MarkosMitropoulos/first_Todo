@@ -50,13 +50,16 @@ appX.controller('homepage', function ($scope, $http) {
 })
 
 appX.controller('editCtrl', function ($scope, $routeParams, $http) {
-    // $http.get('/read-one-todo/' + route.id).then(function (res) {
-    //     $scope.tasks = res.data
-    // })
-
-    console.log($routeParams)
+    $http.get('/read-one-todo/' + $routeParams.id).then(function (res) {
+        $scope.todo = res.data;
+    })
+    $scope.editTodo = function () {
+        console.log($scope.todo)
+        $http.put('/update-todo/' + $scope.todo._id, $scope.todo).then(function (res) {
+            console.log(res.data)
+        })
+    }
 })
-
 
 appX.config(function ($routeProvider) {
     $routeProvider

@@ -1,3 +1,7 @@
 <div>
-    {{todo.task}}
+    <input type="text" disabled ng-model="todo._id">
+    <br>
+    <input type="text" ng-model="todo.task">
+    <button type="button" ng-click="editTodo()">update</button>
+    <a href="#!/">homepage</a>
 </div>

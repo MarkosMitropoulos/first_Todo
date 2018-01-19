@@ -50,11 +50,20 @@ app.delete('/delete-todos/:id', function (req, res) {
 })
 
 app.get('/read-one-todo/:id', function (req, res) {
-    Todo.findById({ _id: req.params.id }, function (err, todos) {
+    Todo.findById({ _id: req.params.id }, function (err, todo) {
         if (err) return res.send('error')
-        res.send(todos);
+        res.send(todo);
     })
 })
+
+app.put('/update-todo/:id', function (req, res) {
+    console.log(req.body)
+    Todo.findByIdAndUpdate(req.params.id, req.body, function (err) {
+        if (err) return res.send('error')
+        res.send('updated')
+    })
+})
+
 
 app.listen(4000, function () {
     console.log('app started on port 4000')
