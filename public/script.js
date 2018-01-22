@@ -2,15 +2,15 @@ var appX = angular.module('mainApp', ["ngRoute"]);
 
 appX.controller('homepage', function ($scope, $http) {
 
-    $http.get('/read-todos').then(function (res) {
+    $http.get('/todos/read-todos').then(function (res) {
         console.log(res.data)
         $scope.tasks = res.data
     })
 
     $scope.tasks = [];
     $scope.searchEnter = function () {
-        $http.post('/add', { x: $scope.task }).then(function (res) {
-            $http.get('/read-todos').then(function (res) {
+        $http.get('/todos/add', { x: $scope.task }).then(function (res) {
+            $http.get('/todos/read-todos').then(function (res) {
                 $scope.tasks = res.data
             })
         })
@@ -40,8 +40,8 @@ appX.controller('homepage', function ($scope, $http) {
     }
 
     $scope.deleteTodo = function (todo, $index) {
-        $http.delete('/delete-todos/' + todo._id).then(function (res) {
-            $http.get('/read-todos').then(function (res) {
+        $http.delete('/todos/delete-todos/' + todo._id).then(function (res) {
+            $http.get('/todos/read-todos').then(function (res) {
                 $scope.tasks = res.data
             })
         })
@@ -50,16 +50,18 @@ appX.controller('homepage', function ($scope, $http) {
 })
 
 appX.controller('editCtrl', function ($scope, $routeParams, $http) {
-    $http.get('/read-one-todo/' + $routeParams.id).then(function (res) {
+    $http.get('/todos/read-one-todo/' + $routeParams.id).then(function (res) {
         $scope.todo = res.data;
     })
     $scope.editTodo = function () {
         console.log($scope.todo)
-        $http.put('/update-todo/' + $scope.todo._id, $scope.todo).then(function (res) {
+        $http.put('/todos/update-todo/' + $scope.todo._id, $scope.todo).then(function (res) {
             console.log(res.data)
         })
     }
 })
+
+
 
 appX.config(function ($routeProvider) {
     $routeProvider
